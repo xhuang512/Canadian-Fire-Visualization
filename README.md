@@ -2,6 +2,8 @@
 ## Important Note
 This actual project was completed as part of UBC DSCI 320 (Visualization for Data Science) by Blake Taylor, Chriscenci Susanto, Daphne Tian, and Xinghao Huang. For portfolio purposes, the original repository has been adapted by removing content authored by other team members; the remaining sections primarily reflect my individual contributions.
 
+Exploring the dashboards here: https://canadian-fire-visualization-mw5cggo2fpjppyn9vt9ufe.streamlit.app/
+
 ## Dataset Description
 The Canadian National Fire Database (CNFDB) is a comprehensive collection of forest fire locations and perimeters compiled from Canadian fire management agencies across provinces, territories, and Parks Canada. The database is standardized into a common format for Canada-wide analysis, though it contains only fires that agencies have chosen to report and map. The dataset contains information pertaining to forest fires from 1930-2023, for the purposes of our analysis we are focusing on years 2000-2023.
 
