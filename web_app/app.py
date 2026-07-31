@@ -443,18 +443,21 @@ def inject_styles() -> None:
         <style>
         :root {
             --ink: #172026;
-            --muted: #61707a;
+            --muted: #52616a;
             --line: rgba(30, 42, 48, 0.12);
             --panel: rgba(255, 255, 255, 0.92);
             --ember: #c95f2e;
             --gold: #f2b84b;
             --green: #2f6f68;
+            --radius: 14px;
+            --surface-shadow: 0 12px 34px rgba(31, 43, 47, 0.08);
         }
 
         html {
             scroll-behavior: smooth;
         }
 
+        /* Page shell and Streamlit chrome */
         .stApp {
             background:
                 radial-gradient(circle at top left, rgba(242, 184, 75, 0.28), transparent 30rem),
@@ -462,9 +465,13 @@ def inject_styles() -> None:
             color: var(--ink);
         }
 
+        header[data-testid="stHeader"] {
+            background: transparent;
+        }
+
         .block-container {
             max-width: 1320px;
-            padding-top: 2rem;
+            padding-top: 1.35rem;
             padding-bottom: 3rem;
         }
 
@@ -472,23 +479,25 @@ def inject_styles() -> None:
             display: none;
         }
 
+        /* Portfolio hero and project metadata */
         .hero {
             border: 1px solid var(--line);
-            border-radius: 18px;
-            padding: 2rem;
+            border-radius: var(--radius);
+            padding: 1.8rem 2rem;
             background:
                 linear-gradient(120deg, rgba(255, 255, 255, 0.94), rgba(255, 255, 255, 0.76)),
                 linear-gradient(90deg, rgba(201, 95, 46, 0.12), rgba(47, 111, 104, 0.12));
-            box-shadow: 0 22px 70px rgba(31, 43, 47, 0.12);
+            box-shadow: var(--surface-shadow);
         }
 
-        .eyebrow {
+        .section-eyebrow {
             color: var(--ember);
             font-size: 0.78rem;
             font-weight: 700;
-            letter-spacing: 0;
+            letter-spacing: 0.05em;
             text-transform: uppercase;
-            margin-bottom: 0.5rem;
+            line-height: 1.2;
+            margin: 0 0 0.5rem;
         }
 
         .hero h1 {
@@ -499,26 +508,43 @@ def inject_styles() -> None:
         }
 
         .hero p {
-            max-width: 760px;
+            max-width: 900px;
             color: var(--muted);
             font-size: 1.05rem;
-            line-height: 1.65;
+            line-height: 1.58;
             margin: 0;
+        }
+
+        .tech-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.45rem;
+            margin-top: 1rem;
+        }
+
+        .tech-chip {
+            border: 1px solid rgba(47, 111, 104, 0.16);
+            border-radius: 999px;
+            padding: 0.28rem 0.62rem;
+            color: #3f5b57;
+            background: rgba(255, 255, 255, 0.55);
+            font-size: 0.75rem;
+            font-weight: 650;
         }
 
         .metric-row {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 1rem;
-            margin: 1.25rem 0 1.4rem;
+            gap: 0.8rem;
+            margin: 0.9rem 0 1.6rem;
         }
 
         .metric-card {
             border: 1px solid var(--line);
-            border-radius: 12px;
-            padding: 1rem 1.1rem;
+            border-radius: var(--radius);
+            padding: 0.8rem 1rem;
             background: var(--panel);
-            box-shadow: 0 12px 34px rgba(31, 43, 47, 0.08);
+            box-shadow: 0 8px 24px rgba(31, 43, 47, 0.07);
         }
 
         .metric-card span {
@@ -535,13 +561,14 @@ def inject_styles() -> None:
             line-height: 1.1;
         }
 
+        /* Shared content surfaces */
         .section-card {
             border: 1px solid var(--line);
-            border-radius: 14px;
-            padding: 1.15rem 1.25rem;
-            margin: 1.15rem 0;
+            border-radius: var(--radius);
+            padding: 1.1rem 1.2rem;
+            margin: 1rem 0;
             background: var(--panel);
-            box-shadow: 0 16px 44px rgba(31, 43, 47, 0.1);
+            box-shadow: var(--surface-shadow);
         }
 
         .section-card h2 {
@@ -565,83 +592,58 @@ def inject_styles() -> None:
             line-height: 1.6;
         }
 
-        .instruction-list {
-            margin: 0.85rem 0 0 0;
-            padding-left: 1.15rem;
-            color: var(--muted);
-            line-height: 1.65;
+        .project-section {
+            margin-top: 1.6rem;
         }
 
-        .instruction-list li {
-            margin: 0.28rem 0;
+        /* Compact project overview */
+        .project-glance {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            margin-top: 0.75rem;
+            border-top: 1px solid var(--line);
         }
 
-        .section-stack {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            margin: 1.25rem 0;
+        .glance-item {
+            padding: 1rem 1.15rem;
+            border-bottom: 1px solid var(--line);
         }
 
-        .section-label {
-            margin: 1.35rem 0 0.65rem;
-            color: var(--ember);
-            font-size: 0.8rem;
-            font-weight: 800;
-            letter-spacing: 0;
-            text-transform: uppercase;
+        .glance-item:nth-child(odd) {
+            border-right: 1px solid var(--line);
         }
 
-        .report-section {
-            border-left: 4px solid var(--green);
-            border-radius: 14px;
-            padding: 1.25rem 1.35rem;
-            background:
-                linear-gradient(90deg, rgba(47, 111, 104, 0.08), rgba(255, 255, 255, 0) 34%),
-                rgba(255, 255, 255, 0.9);
-            box-shadow: 0 14px 34px rgba(31, 43, 47, 0.08);
+        .glance-item:nth-last-child(-n + 2) {
+            border-bottom: 0;
         }
 
-        .report-kicker {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 2rem;
-            height: 2rem;
-            margin-bottom: 0.7rem;
-            border-radius: 999px;
-            background: rgba(47, 111, 104, 0.12);
+        .glance-item h3 {
+            margin: 0 0 0.32rem;
             color: var(--green);
-            font-weight: 800;
-            font-size: 0.85rem;
-        }
-
-        .report-section h3 {
-            margin: 0 0 0.45rem 0;
-            font-size: 1.14rem;
+            font-size: 0.95rem;
             letter-spacing: 0;
         }
 
-        .report-section p {
+        .glance-item p {
             margin: 0;
             color: var(--muted);
-            line-height: 1.62;
-            font-size: 1rem;
-            max-width: 980px;
+            line-height: 1.52;
+            font-size: 0.92rem;
         }
 
+        /* Insight summary */
         .interpretation-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            margin-top: 1rem;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.8rem;
+            margin-top: 0.8rem;
         }
 
         .interpretation-card {
             border: 1px solid rgba(30, 42, 48, 0.1);
-            border-radius: 12px;
-            padding: 1rem 1.1rem;
-            background: rgba(255, 255, 255, 0.82);
+            border-radius: var(--radius);
+            padding: 0.9rem 1rem;
+            background: rgba(255, 255, 255, 0.72);
         }
 
         .interpretation-card h3 {
@@ -658,42 +660,138 @@ def inject_styles() -> None:
         }
 
         .interpretation-card li {
-            margin: 0.3rem 0;
+            margin: 0.24rem 0;
         }
 
-        .tip-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.55rem;
-            margin-top: 0.85rem;
+        .notice-panel {
+            border-left: 4px solid var(--ember);
+            border-radius: var(--radius);
+            padding: 0.9rem 1rem;
+            margin-top: 0.8rem;
+            background: rgba(201, 95, 46, 0.07);
         }
 
-        .tip-pill {
-            border: 1px solid rgba(47, 111, 104, 0.18);
-            border-radius: 999px;
-            padding: 0.38rem 0.72rem;
-            color: #2f514d;
-            background: rgba(47, 111, 104, 0.08);
-            font-size: 0.84rem;
+        .notice-panel h3 {
+            margin: 0 0 0.35rem;
+            font-size: 1rem;
+        }
+
+        .notice-panel p {
+            margin: 0;
+            color: #44535c;
+            line-height: 1.55;
+        }
+
+        /* Dashboard selector and interaction guide */
+        .interaction-strip {
+            margin: 0.8rem 0 0.55rem;
+        }
+
+        .interaction-list {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.6rem 1.5rem;
+            margin: 0.75rem 0 0;
+            padding: 0;
+            list-style: none;
+            counter-reset: interaction-step;
+        }
+
+        .interaction-list li {
+            position: relative;
+            padding-left: 1.75rem;
+            color: var(--muted);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            counter-increment: interaction-step;
+        }
+
+        .interaction-list li::before {
+            content: counter(interaction-step);
+            position: absolute;
+            top: 0.05rem;
+            left: 0;
+            display: grid;
+            place-items: center;
+            width: 1.25rem;
+            height: 1.25rem;
+            border-radius: 50%;
+            color: var(--green);
+            background: rgba(47, 111, 104, 0.11);
+            font-size: 0.7rem;
+            font-weight: 800;
+        }
+
+        .interaction-note {
+            margin-top: 0.8rem !important;
+            padding: 0.55rem 0.7rem;
+            border-left: 3px solid rgba(47, 111, 104, 0.45);
+            background: rgba(47, 111, 104, 0.05);
+            font-size: 0.85rem;
         }
 
         div[role="radiogroup"] {
-            gap: 0.6rem;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.75rem;
+            margin-top: 0.9rem;
         }
 
         div[role="radiogroup"] label {
             border: 1px solid var(--line);
-            border-radius: 12px;
+            border-radius: var(--radius);
             padding: 0.85rem 1rem;
             background: rgba(255, 255, 255, 0.82);
-            box-shadow: 0 8px 20px rgba(31, 43, 47, 0.06);
+            box-shadow: 0 6px 18px rgba(31, 43, 47, 0.05);
+            transition: border-color 160ms ease, background 160ms ease, box-shadow 160ms ease;
+        }
+
+        div[role="radiogroup"] label:has(input:checked) {
+            border-color: rgba(47, 111, 104, 0.7);
+            background: rgba(47, 111, 104, 0.08);
+            box-shadow: 0 9px 24px rgba(31, 43, 47, 0.1);
         }
 
         div[role="radiogroup"] label p {
             color: #203f3b;
-            font-size: 1.08rem;
+            font-size: 1rem;
             font-weight: 800;
-            line-height: 1.25;
+            line-height: 1.3;
+        }
+
+        div[role="radiogroup"] label p::before {
+            display: block;
+            margin-bottom: 0.25rem;
+            color: var(--ember);
+            font-size: 0.7rem;
+            font-weight: 750;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        div[role="radiogroup"] label p::after {
+            display: block;
+            margin-top: 0.35rem;
+            color: var(--muted);
+            font-size: 0.82rem;
+            font-weight: 450;
+            line-height: 1.45;
+        }
+
+        div[role="radiogroup"] label:nth-child(1) p::before {
+            content: "Dashboard 1";
+        }
+
+        div[role="radiogroup"] label:nth-child(1) p::after {
+            content: "Explore where fires occur and how reported causes vary by province and year.";
+        }
+
+        div[role="radiogroup"] label:nth-child(2) p::before {
+            content: "Dashboard 2";
+        }
+
+        div[role="radiogroup"] label:nth-child(2) p::after {
+            content: "Compare fire-size distributions, severity groups, provinces, and reported causes.";
         }
 
         div[data-testid="stVegaLiteChart"] {
@@ -706,6 +804,7 @@ def inject_styles() -> None:
             background: white;
         }
 
+        /* Responsive stacking for narrow screens */
         @media (max-width: 760px) {
             .hero {
                 padding: 1.35rem;
@@ -717,6 +816,24 @@ def inject_styles() -> None:
 
             .metric-row {
                 grid-template-columns: 1fr;
+            }
+
+            .project-glance,
+            .interpretation-grid,
+            .interaction-list,
+            div[role="radiogroup"] {
+                grid-template-columns: 1fr;
+            }
+
+            .glance-item,
+            .glance-item:nth-child(odd),
+            .glance-item:nth-last-child(-n + 2) {
+                border-right: 0;
+                border-bottom: 1px solid var(--line);
+            }
+
+            .glance-item:last-child {
+                border-bottom: 0;
             }
 
         }
@@ -735,26 +852,33 @@ def render_hero(fire_data_sample: pd.DataFrame) -> None:
         f"""
         <div id="overview"></div>
         <div class="hero">
-            <div class="eyebrow">Canadian National Fire Database sample</div>
+            <div class="section-eyebrow">Interactive data visualization case study</div>
             <h1>Understanding Fire Severity in Canada</h1>
             <p>
-                An interactive web version of the original notebook dashboards.
-                Explore where fires are reported, how causes vary by region and year,
-                and how fire size changes across provinces, causes, and severity groups.
+                An interactive analysis of 20,000 records from the Canadian National Fire
+                Database. The coordinated dashboards reveal how wildfire frequency, causes,
+                location, and severity vary across Canada and over time.
             </p>
+            <div class="tech-row">
+                <span class="tech-chip">Python</span>
+                <span class="tech-chip">pandas</span>
+                <span class="tech-chip">Altair</span>
+                <span class="tech-chip">Streamlit</span>
+                <span class="tech-chip">Interactive visualization</span>
+            </div>
         </div>
         <div class="metric-row">
             <div class="metric-card">
-                <span>Sample size</span>
-                <strong>{len(fire_data_sample):,}</strong>
+                <span>Data sample</span>
+                <strong>{len(fire_data_sample):,} records</strong>
             </div>
             <div class="metric-card">
-                <span>Year range</span>
+                <span>Historical coverage</span>
                 <strong>{min_year}-{max_year}</strong>
             </div>
             <div class="metric-card">
-                <span>Source agencies</span>
-                <strong>{province_count}</strong>
+                <span>Reporting coverage</span>
+                <strong>{province_count} source agencies</strong>
             </div>
         </div>
         """,
@@ -763,84 +887,81 @@ def render_hero(fire_data_sample: pd.DataFrame) -> None:
 
 
 def render_sidebar() -> None:
-    st.sidebar.title("Sections")
+    st.sidebar.title("Project Guide")
     st.sidebar.markdown(
         """
         - [Overview](#overview)
-        - [Project Context](#project-context)
-        - [Choose a Dashboard](#choose-dashboard)
-        - [How to Use This View](#how-to-use-this-view)
-        - [Dashboard](#dashboard)
-        - [Interpretation](#interpretation)
+        - [Project](#project)
+        - [Dashboards](#dashboards)
+        - [How to Interact](#how-to-interact)
+        - [Insights](#insights)
         """,
         unsafe_allow_html=True,
     )
-    st.sidebar.caption("Use these links to move through the interactive report.")
+    st.sidebar.caption(
+        "Explore the project, interact with either dashboard, and review the main findings."
+    )
 
 
 def render_report_sections() -> None:
     st.markdown(
         """
-        <div id="project-context"></div>
-        <div class="section-label">Project Context</div>
-        <div class="section-stack">
-            <div class="report-section">
-                <div class="report-kicker">01</div>
-                <h3>Dataset Description</h3>
+        <div id="project"></div>
+        <div class="section-card project-section">
+            <div class="section-eyebrow">Project at a Glance</div>
+            <h2>Project Overview</h2>
+            <div class="project-glance">
+            <div class="glance-item">
+                <h3>Project Goal</h3>
                 <p>
-                    The visualization uses a 20,000-row sample from the Canadian National
-                    Fire Database, focusing on reported wildfire events, fire size, cause,
-                    location, year, and source agency.
+                    Make a large national wildfire dataset easier to explore through
+                    coordinated geographic and statistical views.
                 </p>
             </div>
-            <div class="report-section">
-                <div class="report-kicker">02</div>
-                <h3>Intended Audience</h3>
+            <div class="glance-item">
+                <h3>My Contribution</h3>
                 <p>
-                    The primary audience is the general Canadian public: people who want
-                    to understand wildfire patterns by region, cause, severity, and time
-                    without reading raw tabular data.
+                    Cleaned and standardized historical records, designed two linked
+                    Altair dashboards, implemented filtering and tooltips, and converted
+                    the notebook work into a public Streamlit application.
                 </p>
             </div>
-            <div class="report-section">
-                <div class="report-kicker">03</div>
-                <h3>General Takeaway</h3>
+            <div class="glance-item">
+                <h3>Data Scope</h3>
                 <p>
-                    The dashboards emphasize that fire activity is spatially uneven:
-                    different provinces show different cause profiles, and severe events
-                    can stand apart from ordinary fire-frequency patterns.
+                    20,000 sampled wildfire records covering location, year, cause,
+                    agency, fire size, and severity.
                 </p>
             </div>
-            <div class="report-section">
-                <div class="report-kicker">04</div>
-                <h3>How to Explore</h3>
+            <div class="glance-item">
+                <h3>Key Idea</h3>
                 <p>
-                    Treat each view as a coordinated dashboard. Click, brush, filter, and
-                    hover to move between overview patterns and individual fire records.
+                    Regional fire frequency and severe-fire patterns do not always tell
+                    the same story, so the project separates event frequency from
+                    fire-size and severity analysis.
                 </p>
             </div>
+        </div>
         </div>
         """,
         unsafe_allow_html=True,
     )
 
 
-def render_dashboard_selector() -> str:
-    st.markdown('<div id="choose-dashboard"></div>', unsafe_allow_html=True)
+def render_dashboard_selector():
+    st.markdown('<div id="dashboards"></div>', unsafe_allow_html=True)
     with st.container(border=True):
         st.markdown(
             """
-            <div class="eyebrow">Interactive Dashboards</div>
+            <div class="section-eyebrow">Interactive Dashboards</div>
             <h2 class="dashboard-title">Choose a Dashboard</h2>
             <p>
-                Select one dashboard to load below. The first view focuses on where
-                fires occur and how causes change by region and year; the second view
-                focuses on wildfire size, severity, and regional/cause-based comparisons.
+                Select a view to explore a different dimension of the same wildfire sample.
             </p>
             """,
             unsafe_allow_html=True,
         )
-        return st.radio(
+        dashboard = st.radio(
             "Select one dashboard to explore",
             [
                 "Wildfire Event Frequency Over Time by Fire Cause",
@@ -848,39 +969,34 @@ def render_dashboard_selector() -> str:
             ],
             horizontal=True,
             label_visibility="collapsed",
+            format_func=lambda option: (
+                "Fire Frequency & Cause"
+                if option == "Wildfire Event Frequency Over Time by Fire Cause"
+                else "Fire Size & Severity"
+            ),
         )
+        loading_placeholder = st.empty()
+        loading_placeholder.info("Loading dashboard...")
+        return dashboard, loading_placeholder
 
 
 def render_dashboard_intro(dashboard: str) -> None:
-    if dashboard == "Wildfire Event Frequency Over Time by Fire Cause":
-        title = "Wildfire Event Frequency Over Time by Fire Cause"
-        instructions = [
-            "Start by clicking a province on the map. The selected province turns yellow, and the bar chart updates to summarize fire causes for that region.",
-            "Use the Show All Years checkbox for the long-term overview. Uncheck it when you want the year slider to show one selected year at a time.",
-            "Click one fire cause in the bar chart to reveal matching fire locations on the map.",
-            "Hover over provinces, bars, or fire points to inspect the province, cause, year, month, agency, and fire size details.",
-        ]
-        tips = ["Click a province", "Adjust year", "Select a cause", "Hover for details"]
-    else:
-        title = "Average Wildfire Size by Severity"
-        instructions = [
-            "Choose a severity category from the dropdown to focus on small, medium, large, or extreme fires.",
-            "Drag across the strip plot to brush a fire-size range. The province and cause summaries update to that selected range.",
-            "Click a province bar to highlight fires from that province in the strip plot.",
-            "Click a cause in the lollipop chart to isolate that cause and compare its fire-size pattern against the others.",
-        ]
-        tips = ["Choose severity", "Brush a size range", "Click province bars", "Compare causes"]
-
-    tip_html = "".join(f'<span class="tip-pill">{tip}</span>' for tip in tips)
-    instruction_html = "".join(f"<li>{instruction}</li>" for instruction in instructions)
     st.markdown(
-        f"""
-        <div id="how-to-use-this-view"></div>
-        <div class="section-card">
-            <h2 class="dashboard-title">{title}</h2>
-            <p>Use this dashboard as an interactive exploration tool:</p>
-            <ol class="instruction-list">{instruction_html}</ol>
-            <div class="tip-row">{tip_html}</div>
+        """
+        <div id="how-to-interact"></div>
+        <div class="section-card interaction-strip">
+            <div class="section-eyebrow">How to Interact</div>
+            <h2>Explore the Linked Views</h2>
+            <ol class="interaction-list">
+                <li>Select a province on the map to highlight it and update the cause summary for that region.</li>
+                <li>Adjust the year control to compare long-term patterns with individual years.</li>
+                <li>Select a fire cause in the bar chart to filter the mapped fire locations.</li>
+                <li>Hover over provinces, bars, or fire points to inspect details such as year, agency, cause, and fire size.</li>
+            </ol>
+            <p class="interaction-note">
+                Selections are linked across the dashboard, so changes in one view update
+                the related information in the other.
+            </p>
         </div>
         """,
         unsafe_allow_html=True,
@@ -931,54 +1047,37 @@ def render_dashboard_chart(dashboard: str, fire_data_sample: pd.DataFrame) -> No
 
 def render_dashboard_interpretation(dashboard: str) -> None:
     if dashboard == "Wildfire Event Frequency Over Time by Fire Cause":
-        question = (
-            "How do wildfire frequencies vary across regions and causes, and how do "
-            "these patterns change over time?"
+        notice = (
+            "Fire activity is geographically concentrated, and reported causes vary "
+            "substantially across provinces. Comparing the all-years view with individual "
+            "years helps separate persistent regional patterns from year-specific variation."
         )
-        view_items = [
-            "The left map combines province polygons with point marks for individual fire events.",
-            "The right bar chart summarizes fire-cause frequency for the selected province and year setting.",
-            "Color links fire causes across views, while province highlighting shows the current spatial focus.",
-        ]
-        reading_items = [
-            "Use the map first for spatial patterns, then use the bar chart to interpret cause composition.",
-            "Compare all-years patterns with year-specific patterns by toggling Show All Years.",
-            "Look for provinces where one cause dominates, or where fire points cluster strongly in certain areas.",
-        ]
         strength_items = [
-            "The geographic map makes regional fire patterns immediately visible.",
             "Linked selections reduce manual cross-referencing between province, cause, and location.",
-            "Tooltips preserve detailed record-level information without cluttering the main view.",
+            "Tooltips preserve record-level detail without crowding the main view.",
+            "Province and cause filters support geographic and categorical exploration.",
         ]
         limitation_items = [
-            "Dense regions such as BC or Alberta may have overlapping points that are harder to inspect individually.",
-            "Only one selected year can be compared at a time, so multi-year comparison requires memory.",
-            "The view uses a 20,000-record sample, so it should be interpreted as exploratory rather than complete.",
+            "Dense point clusters in British Columbia and Alberta can create overlap.",
+            "Reporting practices may differ by agency and historical period.",
+            "The 20,000-row sample is exploratory, not the complete national record.",
         ]
     else:
-        question = (
-            "How does fire severity change across provinces and fire causes, and which "
-            "events appear unusually severe compared with typical patterns?"
+        notice = (
+            "Fire-size distributions are uneven, and a small number of large events can "
+            "stand apart from typical fires. Severity filtering helps compare these "
+            "distributions across provinces and reported causes while preserving "
+            "individual-event context."
         )
-        view_items = [
-            "The top jittered strip plot shows individual fire sizes by province or agency.",
-            "The lower-left bar chart compares average fire size by province.",
-            "The lower-right lollipop chart compares average fire size by fire cause.",
-        ]
-        reading_items = [
-            "Start with the severity dropdown to choose an overall view or a specific severity class.",
-            "Brush the strip plot to focus on a fire-size range and watch the summaries update.",
-            "Use province and cause selections to connect individual event distributions to aggregate averages.",
-        ]
         strength_items = [
-            "The strip plot preserves individual events, making outliers easier to notice.",
-            "The linked summaries support both regional and cause-based comparison.",
-            "The severity filter improves readability by separating small, medium, large, and extreme events.",
+            "The strip plot preserves individual events and makes outliers easier to notice.",
+            "Linked summaries support regional and cause-based comparison.",
+            "Severity filtering separates small, medium, large, and extreme events.",
         ]
         limitation_items = [
-            "Severity classes cannot be viewed side by side, so direct category comparison requires switching.",
-            "The full overall distribution can still be crowded before filtering.",
-            "Single-selection behavior limits comparison of multiple provinces or causes at once.",
+            "Severity classes cannot be viewed side by side.",
+            "The overall distribution can be crowded before filtering.",
+            "Single selections limit comparison of multiple provinces or causes at once.",
         ]
 
     def list_html(items: list[str]) -> str:
@@ -986,22 +1085,17 @@ def render_dashboard_interpretation(dashboard: str) -> None:
 
     st.markdown(
         f"""
-        <div id="interpretation"></div>
+        <div id="insights"></div>
         <div class="section-card">
-            <div class="eyebrow">Dashboard Interpretation</div>
-            <h2>How to Read This View</h2>
-            <p><strong>Analytic question:</strong> {question}</p>
+            <div class="section-eyebrow">Dashboard Interpretation</div>
+            <h2>Key Insights and Design Notes</h2>
+            <div class="notice-panel">
+                <h3>What to notice</h3>
+                <p>{notice}</p>
+            </div>
             <div class="interpretation-grid">
                 <div class="interpretation-card">
-                    <h3>What the View Shows</h3>
-                    <ul>{list_html(view_items)}</ul>
-                </div>
-                <div class="interpretation-card">
-                    <h3>Reading Strategy</h3>
-                    <ul>{list_html(reading_items)}</ul>
-                </div>
-                <div class="interpretation-card">
-                    <h3>Strengths</h3>
+                    <h3>Design strengths</h3>
                     <ul>{list_html(strength_items)}</ul>
                 </div>
                 <div class="interpretation-card">
@@ -1027,10 +1121,11 @@ def main() -> None:
     fire_data_sample = load_fire_data()
     render_hero(fire_data_sample)
     render_report_sections()
-    dashboard = render_dashboard_selector()
+    dashboard, loading_placeholder = render_dashboard_selector()
 
     render_dashboard_intro(dashboard)
     render_dashboard_chart(dashboard, fire_data_sample)
+    loading_placeholder.empty()
     render_dashboard_interpretation(dashboard)
 
 
